@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: 'covid-vaccination-service'
+    id:  'cvs'
+    schema: 'cvs'
+
+server:
+  port: 8866
