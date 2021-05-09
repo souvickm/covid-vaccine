@@ -7,6 +7,9 @@ import org.springframework.web.client.RestTemplate;
 
 import java.time.Duration;
 
+/**
+ * This is a customized rest configuration class.
+ */
 @Configuration
 public class RestConfig {
 

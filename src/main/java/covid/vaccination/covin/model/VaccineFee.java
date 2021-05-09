@@ -4,6 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * DTO object for the CovinClient Respone.
+ */
 @Getter
 @Setter
 @ToString

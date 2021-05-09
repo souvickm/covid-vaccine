@@ -10,6 +10,8 @@ And a boolean[onlyAvailableSlot] to display only the available vaccine centers. 
 
 ## IFTTT ( How and what)
 
+Link to setup IFTTT to get the key and notification.
+https://betterprogramming.pub/how-to-send-push-notifications-to-your-phone-from-any-script-6b70e34748f6
 
 ### List of District Id's for State: Karnataka
 

@@ -5,15 +5,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
-
 import java.util.List;
 
+/**
+ * DTO object for the CovinClient Respone.
+ */
 @Getter
 @Setter
 @ToString
-public class Center {
-    public int center_id;
+public class Centre {
+    @JsonProperty("center_id")
+    public int centre_id;
     public String name;
     public String address;
     public String state_name;

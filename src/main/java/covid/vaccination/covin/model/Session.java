@@ -6,6 +6,9 @@ import lombok.ToString;
 
 import java.util.List;
 
+/**
+ * DTO object for the CovinClient Respone.
+ */
 @Getter
 @Setter
 @ToString

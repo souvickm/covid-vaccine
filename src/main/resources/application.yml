@@ -10,3 +10,13 @@ server:
 aarogyaSetu:
   baseUrl: https://cdn-api.co-vin.in
   availibilityPath: /api/v2/appointment/sessions/public/calendarByDistrict
+
+ifttt:
+  baseUrl: https://maker.ifttt.com
+  #please provide the trigger function mentioned in the ifttt, refer README.
+  triggerFunction:
+  #please provide the key, refer README for more info.
+  key:
+  triggerPath: /trigger/
+  keyPath: /with/key/
+
