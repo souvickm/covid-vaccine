@@ -46,7 +46,7 @@ public class CovinResource {
                                                                 @RequestParam(required = false) String date,
                                                                 @RequestParam(required = true) Boolean onlyAvailableSlot) {
         validateDate(date);
-        log.debug("After Validation : district id {}, age {}, date {}, onlyAvailableSlot {} ", districtId, age, this.date, onlyAvailableSlot);
+        log.info("After Validation : district id {}, age {}, date {}, onlyAvailableSlot {} ", districtId, age, this.date, onlyAvailableSlot);
         CovinResponse covinResponse = covinService.getVaccineAvailability(districtId, age, this.date, onlyAvailableSlot);
         return new ResponseEntity<>(covinResponse, HttpStatus.OK);
     }
