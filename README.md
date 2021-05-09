@@ -1,12 +1,15 @@
 
-# covid vaccination availability service
+# Covid Vaccination Availability Service
 
 ## Introduction
 
-Covid Vaccination Service provides the list of vaccination centers available in the given area based on the inputs from the users.
+Covid Vaccination Service provides the list of vaccination centers available in the given area based on the inputs from the users and also capable of sending a notificaction to a mobile using IFTTT using continuous polling.
 
- User can provide  District_ID, age
- And a boolean[onlyAvailableSlot] to display only the available vaccine centers 
+User can provide  District_ID, age, date
+And a boolean[onlyAvailableSlot] to display only the available vaccine centers. Or just start to service to automatically poll and receive notification in personal handset.
+
+## IFTTT ( How and what)
+
 
 ### List of District Id's for State: Karnataka
 
