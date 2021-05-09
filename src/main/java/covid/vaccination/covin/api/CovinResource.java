@@ -25,9 +25,6 @@ public class CovinResource {
     private static final Integer DEFAULT_AGE = 18;
     private static final Boolean DEFAULT_ONLY_AVAILABLE_SLOT = Boolean.TRUE;
     private static final String DEFAULT_DATE = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yy"));
-    private Integer districtId;
-    private Integer age;
-    private Boolean onlyAvailableSlot;
     private String date;
 
     @Autowired
@@ -44,19 +41,13 @@ public class CovinResource {
      */
     @ResponseBody
     @GetMapping(value = AVAILIBILITY_PATH)
-    public ResponseEntity<CovinResponse> getVaccineAvailability(@RequestParam(required = false) Integer districtId,
-                                                                @RequestParam(required = false) Integer age,
+    public ResponseEntity<CovinResponse> getVaccineAvailability(@RequestParam(required = true) Integer districtId,
+                                                                @RequestParam(required = true) Integer age,
                                                                 @RequestParam(required = false) String date,
-                                                                @RequestParam(required = false) Boolean onlyAvailableSlot) {
-        this.districtId=districtId;
-        this.age=age;
-        this.onlyAvailableSlot=onlyAvailableSlot;
-        this.date = date;
-        log.info("Info received : district id {}, age {}, date {}, onlyAvailableSlot {} ", districtId, age, date, onlyAvailableSlot);
-        validateAndsetDefaultValues(districtId,age,date,onlyAvailableSlot);
-        log.debug("After Validation : district id {}, age {}, date {}, onlyAvailableSlot {} ", this.districtId, this.age, this.date, this.onlyAvailableSlot);
-        CovinResponse covinResponse = covinService.getVaccineAvailability(this.districtId,
-                this.age, this.date, this.onlyAvailableSlot);
+                                                                @RequestParam(required = true) Boolean onlyAvailableSlot) {
+        validateDate(date);
+        log.info("After Validation : district id {}, age {}, date {}, onlyAvailableSlot {} ", districtId, age, this.date, onlyAvailableSlot);
+        CovinResponse covinResponse = covinService.getVaccineAvailability(districtId, age, this.date, onlyAvailableSlot);
         return new ResponseEntity<>(covinResponse, HttpStatus.OK);
     }
 
@@ -68,7 +59,7 @@ public class CovinResource {
      * Default display of only available slots - set to true
      * Returns - List of the available postal codes will be notified along with the link to self registration portal of CoWin to your IFTTT app.
      */
-    @Scheduled(fixedRate = 30000)
+    @Scheduled(fixedRate = 4000)
     @ResponseBody
     @GetMapping(value = AVAILIBILITY_PATH+"/check/always")
     public void getVaccineAvailabilityScheduled() {
@@ -81,27 +72,15 @@ public class CovinResource {
     }
 
     /**
-     * Basic validation for the input parameters are done. Null or zero leads to invalid input parameter.
-     * @param districtId - The ID of the corresponding District - If invalid, then set to 294 [BBMP]
-     * @param age - The age of the user - If invalid, then set to 18.
-     * @param date - The date to check the availability for. If invalid, then set to today's date.
-     * @param onlyAvailableSlot - If invalid - then set to true to display only the avaialable slots.
+     * Basic validation for the input parameters are done.
+      * @param date - The date to check the availability for. If invalid, then set to today's date.
      */
-    private void validateAndsetDefaultValues(Integer districtId, Integer age, String date, Boolean onlyAvailableSlot){
+
+    private void validateDate(String date){
         String dateRegex = "^([0-2][0-9]||3[0-1])-(0[0-9]||1[0-2])-([2-9][1-9])$";
-        if (null == districtId || districtId == 0){
-            this.districtId = DEFAULT_DISTRICT_ID;
-        }
-        if (null == age || age == 0){
-            this.age =DEFAULT_AGE;
-        }
         if(null == date || date.isEmpty() || !date.matches(dateRegex)){
             this.date = DEFAULT_DATE;
         }
-        if (null == onlyAvailableSlot || !onlyAvailableSlot){
-            this.onlyAvailableSlot = DEFAULT_ONLY_AVAILABLE_SLOT;
-        }
-
     }
 
 
