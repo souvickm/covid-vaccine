@@ -10,7 +10,7 @@ And a boolean[onlyAvailableSlot] to display only the available vaccine centers. 
 
 ## IFTTT ( How and what)
 
-Link to setup IFTTT in you phone. And just add the key and trigger function name to the application yml to get the notification in your mobile.
+Link to setup IFTTT in your phone. And just add the key and trigger function name to the application yml to get the notification in your mobile.
 
 https://betterprogramming.pub/how-to-send-push-notifications-to-your-phone-from-any-script-6b70e34748f6
 
