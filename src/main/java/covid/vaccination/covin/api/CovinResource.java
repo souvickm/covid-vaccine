@@ -24,7 +24,7 @@ public class CovinResource {
     private static final Integer DEFAULT_DISTRICT_ID = 294;
     private static final Integer DEFAULT_AGE = 18;
     private static final Boolean DEFAULT_ONLY_AVAILABLE_SLOT = Boolean.TRUE;
-    private static final String DEFAULT_DATE = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yy"));
+    private static final String DEFAULT_DATE = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
     private String date;
 
     @Autowired
@@ -59,15 +59,23 @@ public class CovinResource {
      * Default display of only available slots - set to true
      * Returns - List of the available postal codes will be notified along with the link to self registration portal of CoWin to your IFTTT app.
      */
-    @Scheduled(fixedRate = 4000)
-    @ResponseBody
-    @GetMapping(value = AVAILIBILITY_PATH+"/check/always")
-    public void getVaccineAvailabilityScheduled() {
+    @Scheduled(fixedRate = 7000)
+    public void getVaccineAvailabilityScheduledforBBMP() {
 
         log.info("values set by default : district id {}, age {}, date {}, onlyAvailableSlot {} ",
                 DEFAULT_DISTRICT_ID,
                 DEFAULT_AGE, DEFAULT_DATE, DEFAULT_ONLY_AVAILABLE_SLOT);
         CovinResponse covinResponse = covinService.getVaccineAvailability(DEFAULT_DISTRICT_ID,
+                DEFAULT_AGE, DEFAULT_DATE, DEFAULT_ONLY_AVAILABLE_SLOT);
+    }
+
+    @Scheduled(fixedRate = 10000)
+    public void getVaccineAvailabilityScheduledForBU() {
+
+        log.info("values set by default : district id {}, age {}, date {}, onlyAvailableSlot {} ",
+                265,
+                DEFAULT_AGE, DEFAULT_DATE, DEFAULT_ONLY_AVAILABLE_SLOT);
+        CovinResponse covinResponse = covinService.getVaccineAvailability(265,
                 DEFAULT_AGE, DEFAULT_DATE, DEFAULT_ONLY_AVAILABLE_SLOT);
     }
 
@@ -77,8 +85,8 @@ public class CovinResource {
      */
 
     private void validateDate(String date){
-        String dateRegex = "^([0-2][0-9]||3[0-1])-(0[0-9]||1[0-2])-([2-9][1-9])$";
-        if(null == date || date.isEmpty() || !date.matches(dateRegex)){
+        //todo work on a proper date validation here
+        if(null == date || date.isEmpty()){
             this.date = DEFAULT_DATE;
         }
     }
