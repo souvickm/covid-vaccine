@@ -1,5 +1,5 @@
 server:
-  port: 8866
+  port: 8867
   compression:
     enabled: true
     mime-types: application/json,application/xml,text/html,text/xml,text/plain
@@ -9,7 +9,7 @@ server:
 
 aarogyaSetu:
   baseUrl: https://cdn-api.co-vin.in
-  availibilityPath: /api/v2/appointment/sessions/public/calendarByDistrict
+  availibilityPath: /api/v2/appointment/sessions/calendarByDistrict
 
 ifttt:
   baseUrl: https://maker.ifttt.com

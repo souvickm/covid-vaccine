@@ -3,6 +3,7 @@ package covid.vaccination.covin.service;
 import covid.vaccination.covin.client.CovinClient;
 import covid.vaccination.covin.client.IFTTTClient;
 import covid.vaccination.covin.model.Centre;
+import covid.vaccination.covin.model.CentreInfo;
 import covid.vaccination.covin.model.CovinResponse;
 import lombok.extern.slf4j.Slf4j;
 
@@ -44,7 +45,7 @@ public class CovinService {
             if(centreList.size()>0) {
                 if (onlyAvailableSlot) {
                     centreList = centreList.stream()
-                            .filter(s -> s.getSessions().stream().allMatch(avl -> avl.getAvailable_capacity() > 0))
+                            .filter(s -> s.getSessions().stream().allMatch(avl -> avl.getAvailable_capacity() > 2))
                             .collect(Collectors.toList());
                 }
 
@@ -87,9 +88,13 @@ public class CovinService {
      * @param finalCentreList - The list of vaccination centres.
      */
     private void sendNotification(List<Centre> finalCentreList){
-        List<Integer> postcodes = new ArrayList<>();
-        finalCentreList.forEach(s -> postcodes.add(s.getPincode()));
-        log.info("Postcodes : {}", postcodes.toString());
-        iftttClient.sendNotification(postcodes.toString());
+        //List<Integer> postcodes = new ArrayList<>();
+        List<CentreInfo> centreInfos = new ArrayList<>();
+        finalCentreList.forEach(s -> {
+            CentreInfo centreInfo = new CentreInfo(s.getPincode(), s.getName(), s.getDistrict_name(), s.getSessions().get(0).getDate());
+            centreInfos.add(centreInfo);
+        });
+        log.info("Centres are : {}", centreInfos.toString());
+        iftttClient.sendNotification(centreInfos.toString());
     }
 }

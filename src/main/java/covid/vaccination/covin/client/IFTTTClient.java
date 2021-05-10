@@ -47,9 +47,9 @@ public class IFTTTClient {
     /**
      * This method will notify the details of the list of postal codes of the vacciantion centers along with the
      * URL to the self registration portal for CoWin to the users IFTTT app.
-     * @param postCode - List of postal codes for the corresponding available centres.
+     * @param centreInfo - List of centre details for the corresponding available centres.
      */
-    public void sendNotification(String postCode) {
+    public void sendNotification(String centreInfo) {
 
         if (null == triggerFunction || triggerFunction.isEmpty() || null== key || key.isEmpty() ){
             log.warn("Please add your IFTTT key and notify function to get notified in your phone");
@@ -60,7 +60,7 @@ public class IFTTTClient {
             headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
             headers.add("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36");
             MultiValueMap<String, String> body = new LinkedMultiValueMap<String, String>();
-            body.add("value1", postCode);
+            body.add("value1", centreInfo);
             StringBuilder iftttUrl = new StringBuilder(baseUrl)
                     .append(triggerPath).append(triggerFunction).append(keyPath).append(key);
             URIBuilder uri = new URIBuilder(iftttUrl.toString());
