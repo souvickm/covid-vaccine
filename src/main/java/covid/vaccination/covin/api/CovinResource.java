@@ -21,7 +21,8 @@ import java.time.format.DateTimeFormatter;
 public class CovinResource {
 
     public static final String AVAILIBILITY_PATH = "/v1/availability";
-    private static final Integer DEFAULT_DISTRICT_ID = 294;
+    private static final Integer BBMP_DISTRICT_ID = 294;
+    private static final Integer BLR_URBAN_DISTRICT_ID = 265;
     private static final Integer DEFAULT_AGE = 18;
     private static final Boolean DEFAULT_ONLY_AVAILABLE_SLOT = Boolean.TRUE;
     private static final String DEFAULT_DATE = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
@@ -53,29 +54,37 @@ public class CovinResource {
 
     /**
      * This endpoint is internally scheduled to run every 1000ms to check the availabilty of the vaccination centres for default values.
-     * Default DistrictID - set to 294
+     * Default DistrictID - set to BBMP_DISTRICT_ID
      * Default Age - set to 18
      * Default Date - set to the current date
      * Default display of only available slots - set to true
      * Returns - List of the available postal codes will be notified along with the link to self registration portal of CoWin to your IFTTT app.
      */
-    @Scheduled(fixedRate = 7000)
+    @Scheduled(fixedRate = 5000)
     public void getVaccineAvailabilityScheduledforBBMP() {
 
         log.info("values set by default : district id {}, age {}, date {}, onlyAvailableSlot {} ",
-                DEFAULT_DISTRICT_ID,
+                BBMP_DISTRICT_ID,
                 DEFAULT_AGE, DEFAULT_DATE, DEFAULT_ONLY_AVAILABLE_SLOT);
-        CovinResponse covinResponse = covinService.getVaccineAvailability(DEFAULT_DISTRICT_ID,
+        CovinResponse covinResponse = covinService.getVaccineAvailability(BBMP_DISTRICT_ID,
                 DEFAULT_AGE, DEFAULT_DATE, DEFAULT_ONLY_AVAILABLE_SLOT);
     }
 
+    /**
+     * This endpoint is internally scheduled to run every 1000ms to check the availabilty of the vaccination centres for default values.
+     * Default DistrictID - set to BLR_URBAN_DISTRICT_ID
+     * Default Age - set to 18
+     * Default Date - set to the current date
+     * Default display of only available slots - set to true
+     * Returns - List of the available postal codes will be notified along with the link to self registration portal of CoWin to your IFTTT app.
+     */
     @Scheduled(fixedRate = 10000)
     public void getVaccineAvailabilityScheduledForBU() {
 
         log.info("values set by default : district id {}, age {}, date {}, onlyAvailableSlot {} ",
-                265,
+                BLR_URBAN_DISTRICT_ID,
                 DEFAULT_AGE, DEFAULT_DATE, DEFAULT_ONLY_AVAILABLE_SLOT);
-        CovinResponse covinResponse = covinService.getVaccineAvailability(265,
+        CovinResponse covinResponse = covinService.getVaccineAvailability(BLR_URBAN_DISTRICT_ID,
                 DEFAULT_AGE, DEFAULT_DATE, DEFAULT_ONLY_AVAILABLE_SLOT);
     }
 
@@ -88,6 +97,8 @@ public class CovinResource {
         //todo work on a proper date validation here
         if(null == date || date.isEmpty()){
             this.date = DEFAULT_DATE;
+        }else{
+            this.date = date;
         }
     }
 
